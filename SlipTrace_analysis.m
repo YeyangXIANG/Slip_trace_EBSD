@@ -9,6 +9,9 @@ clear,clc;close all
 % Number of strace to be analyzed
 num_strace = 1;
 
+% Phase to be analyzed
+Phase_chosen = 'Magnesium';
+
 % Define x and y directions to match the SEM images
 plotx2east; plotzIntoPlane
 
@@ -34,7 +37,7 @@ mP.micronBar.visible = 'off';
 print(gcf,[fname(1:end-4) '_RawMap_NoScaleBar'],'-dpng','-r400');
 
 % plot ipf key
-ipfKey = ipfColorKey(ebsd('Magnesium'));
+ipfKey = ipfColorKey(ebsd(Phase_chosen));
 figure;
 plot(ipfKey)
 print(gcf,[fname(1:end-4) '_ipfKey'],'-dpng','-r400');
@@ -66,7 +69,7 @@ grains = grains.smooth(5);
 
 % extract new grain boundaries
 gB = grains.boundary;
-gB_MgMg = gB('Magnesium','Magnesium');
+gB_MgMg = gB(Phase_chosen,Phase_chosen);
 
 % plot denoised grains
 
@@ -119,7 +122,7 @@ end
 % cs = crystalShape.hex(ebsd.CS);
 % 
 % color = ipfKey.orientation2color(ebsd(grains(grainIDALL(i))).orientations);
-% ipfKey = ipfColorKey(ebsd('Magnesium'));
+% ipfKey = ipfColorKey(ebsd(Phase_chosen));
 % % set the referece direction to X
 % ipfKey.inversePoleFigureDirection = vector3d.X;
 % % compute the colors
@@ -179,14 +182,14 @@ save(savename,'ebsd','grains','grainIDALL','PlaneAll','PlaneBest','PlaneString',
 %% pole figure for specific grain
 % ebsd_grain = ebsd(grains(150));
 % % choose the plane for mapping
-% h = [Miller(0,0,0,1,ebsd_grain('Magnesium').CS),...
-%     Miller(1,0,-1,0,ebsd_grain('Magnesium').CS),...
-%     Miller(1,0,-1,1,ebsd_grain('Magnesium').CS),...
-%     Miller(1,1,-2,2,ebsd_grain('Magnesium').CS)];%,Miller(1,0,-1,2,ebsd('Magnesium').CS)];
+% h = [Miller(0,0,0,1,ebsd_grain(Phase_chosen).CS),...
+%     Miller(1,0,-1,0,ebsd_grain(Phase_chosen).CS),...
+%     Miller(1,0,-1,1,ebsd_grain(Phase_chosen).CS),...
+%     Miller(1,1,-2,2,ebsd_grain(Phase_chosen).CS)];%,Miller(1,0,-1,2,ebsd(Phase_chosen).CS)];
 % 
 % % plot pole figure
 % figure;
-% plotPDF(ebsd_grain('Magnesium').orientations,h,'contourf','minmax','antipodal');
+% plotPDF(ebsd_grain(Phase_chosen).orientations,h,'contourf','minmax','antipodal');
 % % add colorbar
 % CLim(gcm,'equal');
 % mtexColorbar
@@ -314,10 +317,11 @@ set(gca,'YDir','reverse');
 axis equal
 axis off
 
-% save image
-legend(h,{'Basal';'Prismatic';'Pyramidal I';'Pyramidal II';'Slip trace'},'edgecolor','none','location','northeast')
 savename = [ImagName(1:end-4) '_grain' num2str(grainID) '_SlipTrace'];
 print(gcf,savename,'-dpng','-r400');
+
+% save image
+legend(h,{'Basal';'Prismatic';'Pyramidal I';'Pyramidal II';'Slip trace'},'edgecolor','none','location','northeast')
 
 %% Get the minimum angle and the slip plane
 
@@ -341,5 +345,7 @@ end
 
 activePlanes = planeAll(top);
 traceMismatch = angles(top)/degree;
+
+text(0.1,0.1,['Mismatch degree = ' num2str(traceMismatch)],'Units','normalized','Color','red','FontSize',12);
 
 end
