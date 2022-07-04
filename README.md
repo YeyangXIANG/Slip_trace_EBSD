@@ -13,8 +13,8 @@ Running the code
 Functions of the code
 -----------------------------------------------------------------------------------------
 1. Denose and reconstruct grains
-2. Read slip trace from SEM image
-3. Analyze and plot slip traces
+2. Read slip traces from SEM image
+3. Plot grains and corresponding slip systems
 
 
 Further Reference
