@@ -7,7 +7,7 @@ For each slip trace,  3 most possible slip systems are saved.
 
 Running the code
 -----------------------------------------------------------------------------------------
-Define number of slip traces and other optioanal parameters, and then click run.
+Define number of slip traces and other optional parameters, then click run.
 
 
 Functions of the code
