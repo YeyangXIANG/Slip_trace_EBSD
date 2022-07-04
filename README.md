@@ -1,6 +1,6 @@
 # Slip_trace_EBSD
 
-Matlab code (based on MTEX 5.7.0) to charaterize slip trace of HCP metal basaed on EBSD data and SEM image.
+Matlab code (based on MTEX) to charaterize slip trace of HCP metal basaed on EBSD data and SEM image.
 
 For each slip trace,  3 most possible slip systems are saved.
 
