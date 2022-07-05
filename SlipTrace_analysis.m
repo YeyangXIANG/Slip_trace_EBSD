@@ -7,7 +7,7 @@ clear,clc;close all
 %% Define parameters
 
 % Number of strace to be analyzed
-num_strace = 1;
+num_strace = 2;
 
 % Phase to be analyzed
 Phase_chosen = 'Magnesium';
@@ -117,26 +117,20 @@ for i = start:over
     lineAll{i} = line;
 end
 
-%%
+%% Plot grains
 
-% cs = crystalShape.hex(ebsd.CS);
-% 
-% color = ipfKey.orientation2color(ebsd(grains(grainIDALL(i))).orientations);
-% ipfKey = ipfColorKey(ebsd(Phase_chosen));
-% % set the referece direction to X
-% ipfKey.inversePoleFigureDirection = vector3d.X;
-% % compute the colors
-% color = ipfKey.orientation2color(ebsd(grains(grainIDALL(i))).orientations);
-% 
-% figure
-% plot(ebsd(grains(grainIDALL(i))),color,'micronbar','off');
-% hold on
-% plot(grains(grainIDALL(i)).boundary,'linewidth',2)
-% plot(grains(grainIDALL(i)),0.5*cs,'faceAlpha',0.3,'linewidth',2);
-% hold off
-% box off
-% axis off
-% print(gcf,[ImagName(1:end-4) '_grain' num2str(grainID) 'orientation'],'-dpng','-r400');
+cs = crystalShape.hex(ebsd.CS);
+for i = 1:length(grainIDALL)
+figure
+plot(ebsd(grains(grainIDALL(i))),ebsd(grains(grainIDALL(i))).orientations,'micronbar','off');
+hold on
+plot(grains(grainIDALL(i)).boundary,'linewidth',2)
+plot(grains(grainIDALL(i)),0.5*cs,'faceAlpha',0.3,'linewidth',2);
+hold off
+box off
+axis off
+print(gcf,[ImagName(1:end-4) '_grain' num2str(grainIDALL(i)) 'orientation'],'-dpng','-r400');
+end
 
 %% Extract the best fit
 
@@ -158,11 +152,11 @@ end
 
 %% Plot results on ebsd map
 figure;
-% plot(ebsd,ebsd.orientations)
-% hold on
-% plot(grains.boundary,'linewidth',1)
-% hold off
-plot(grains,grains.meanOrientation);
+plot(ebsd,ebsd.orientations)
+hold on
+plot(grains.boundary,'linewidth',1)
+hold off
+% plot(grains,grains.meanOrientation);
 cs = crystalShape.hex(ebsd.CS);
 for i = 1:length(PlaneAll)
     hold on
