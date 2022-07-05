@@ -149,11 +149,11 @@ end
 
 % Convert to string
 for i = 1:length(PlaneAll)
-    PlaneString{i} = '[';
+    PlaneString{i} = '(';
     for j = 1:4
         PlaneString{i} = append(PlaneString{i},num2str(PlaneBest{i}(j,1)));
     end
-    PlaneString{i} = append(PlaneString{i},']');
+    PlaneString{i} = append(PlaneString{i},')');
 end
 
 %% Plot results on ebsd map
